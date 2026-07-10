@@ -24,7 +24,12 @@ export class Judge {
     });
 
     try {
-      return JSON.parse(result.text);
+      const cleaned = result.text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+return JSON.parse(cleaned);
     } catch {
       throw new Error(
         "Judge returned invalid JSON."

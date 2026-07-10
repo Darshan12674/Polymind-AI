@@ -20,27 +20,50 @@ export const MODELS: ModelConfig[] = [
     },
 
     {
-    name: "DeepSeek",
-    provider: "openrouter",
-    //model: "deepseek/deepseek-chat-v3-0324",
-    model: "deepseek/deepseek-r1-0528:free",
-    enabled: true,
-  },
+  name: "Gemma 4",
+  provider: "openrouter",
+  model: "google/gemma-4-31b-it:free",
+  enabled: true,
+},
 
-  {
-    name: "Llama",
-    provider: "openrouter",
-    //model: "meta-llama/llama-3.3-70b-instruct",
-    model: "meta-llama/llama-3.3-70b-instruct:free",
-    enabled: true,
-  },
+{
+  name: "Llama 3.3",
+  provider: "openrouter",
+  model: "meta-llama/llama-3.3-70b-instruct:free",
+  enabled: true,
+},
 
-  {
-    name: "Qwen",
-    provider: "openrouter",
-    // model: "qwen/qwen3-235b-a22b",
-    model: "qwen/qwen3-235b-a22b:free",
-    enabled: true,
-  },
+{
+  name: "Nemotron",
+  provider: "openrouter",
+  model: "nvidia/nemotron-3-ultra:free",
+  enabled: true,
+}
+
+  //   {
+  //   name: "DeepSeek",
+  //   provider: "openrouter",
+  //   //model: "deepseek/deepseek-chat-v3-0324",
+  //   model: "deepseek/deepseek-r1-0528:free",
+  //   enabled: true,
+  // },
+
+  // {
+  //   name: "Llama",
+  //   provider: "openrouter",
+  //   //model: "meta-llama/llama-3.3-70b-instruct",
+  //   model: "meta-llama/llama-3.3-70b-instruct:free",
+  //   enabled: true,
+  // },
+
+  // {
+  //   name: "Qwen",
+  //   provider: "openrouter",
+  //   // model: "qwen/qwen3-235b-a22b",
+  //   model: "qwen/qwen3-235b-a22b:free",
+  //   enabled: true,
+  // },
+
+
 
 ]
