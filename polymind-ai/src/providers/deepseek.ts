@@ -1,7 +1,7 @@
 import { BaseProvider } from "./base";
 import { AIResponse } from "@/ types/response";
 
-export class DeepseekProvider extends BaseProvider {
+export class DeepSeekProvider extends BaseProvider {
   readonly name = "Deepseek";
 
   async generateResponse(prompt: string): Promise<AIResponse> {
