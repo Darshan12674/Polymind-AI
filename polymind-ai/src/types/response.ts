@@ -12,9 +12,9 @@ export interface AIResponse {
   error?: string;
 
   usage?: {
-    promptTokens: number;
-    completionTokens: number;
-    totalTokens: number;
+    promptTokens?: number;
+    completionTokens?: number;
+    totalTokens?: number;
   };
 
   metadata?: Record<string, unknown>;

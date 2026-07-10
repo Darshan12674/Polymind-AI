@@ -15,14 +15,21 @@ async function main() {
 
   const orchestrator = new Orchestrator();
 
-  const responses = await orchestrator.ask(prompt);
+  const responses = await orchestrator.ask({
+    prompt
+  });
 
   console.log("\n==============================");
 
   responses.forEach((response) => {
     console.log(`\n🤖 ${response.model}`);
     console.log("------------------------------");
-    console.log(response.response);
+    if(response.success) {
+      console.log(response.content)
+      console.log(`⏱ ${response.latency} ms`)
+    } else {
+      console.log(`❌ ${response.error}`)
+    }
   });
 
   console.log("\n==============================");
