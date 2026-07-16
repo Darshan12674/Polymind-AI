@@ -1,36 +1,180 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PolyMind AI 🧠
 
-## Getting Started
+PolyMind AI is a multi-model AI orchestration system that queries multiple Large Language Models (LLMs) simultaneously, compares their responses, and uses an AI Judge to determine the best answer while generating a consensus response.
 
-First, run the development server:
+The goal of this project is to demonstrate AI orchestration, provider abstraction, and self-consistency techniques rather than relying on a single LLM.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Features
+
+- Query multiple AI models in parallel
+- Unified provider interface for all models
+- AI Judge to evaluate responses
+- Consensus answer generation
+- Modular architecture for adding new providers
+- Error handling for unavailable or rate-limited models
+- CLI-based MVP (UI planned)
+
+---
+
+## Project Architecture
+
+```
+                User
+                  │
+                  ▼
+                CLI
+                  │
+                  ▼
+            Orchestrator
+                  │
+     ┌────────────┼────────────┐
+     ▼            ▼            ▼
+  Gemini       OpenRouter   Future Providers
+                   │
+      ┌────────────┼──────────────┐
+      ▼            ▼              ▼
+   Gemma 4      Llama 3.3     Other Models
+                  │
+                  ▼
+              AI Judge
+                  │
+                  ▼
+     Winner + Consensus Answer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How the Project Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. The user enters a prompt through the CLI.
+2. The Orchestrator sends the prompt to all enabled AI providers simultaneously.
+3. Each provider returns its response in a standardized format.
+4. Failed providers are safely ignored while successful responses continue.
+5. The AI Judge receives all successful responses.
+6. The Judge evaluates each response based on:
+   - Accuracy
+   - Completeness
+   - Clarity
+   - Relevance
+7. The Judge selects the best response and generates a consensus answer.
+8. The CLI displays:
+   - Individual model responses
+   - Latency for each model
+   - Winner
+   - Scores
+   - Consensus answer
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Current Interface
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is currently **CLI-based**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The backend architecture has been completed first to validate the orchestration logic before building a web interface.
 
-## Deploy on Vercel
+A Next.js UI is planned for future development.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Models / Providers Used
+
+### Google AI Studio
+
+- Gemini 2.5 Flash Lite
+
+### OpenRouter
+
+- Google Gemma 4
+- Meta Llama 3.3 70B Instruct
+- NVIDIA Nemotron (planned)
+- Additional OpenRouter models can be added easily
+
+The architecture is configuration-driven, allowing models to be added or replaced without changing the orchestration logic.
+
+---
+
+## Self-Consistency Flow
+
+Unlike a traditional chatbot that depends on a single model, PolyMind AI follows a self-consistency approach.
+
+```
+User Question
+       │
+       ▼
+Multiple AI Models
+       │
+       ▼
+Collect Responses
+       │
+       ▼
+AI Judge
+       │
+       ▼
+Best Response
+       │
+       ▼
+Consensus Answer
+```
+
+Instead of trusting a single model, multiple independent responses are generated and evaluated. The AI Judge compares the outputs and produces a higher-confidence final answer.
+
+---
+
+## Project Structure
+
+```
+src/
+├── cli/
+├── config/
+├── judge/
+├── orchestrator/
+├── prompts/
+├── providers/
+├── services/
+├── types/
+├── utils/
+```
+
+---
+
+## Tech Stack
+
+- TypeScript
+- Node.js
+- OpenRouter API
+- Google AI Studio (Gemini)
+- TSX
+- Next.js (UI planned)
+
+---
+
+## Future Improvements
+
+- Next.js Web UI
+- Streaming responses
+- Response comparison dashboard
+- AI Judge analytics
+- Provider health monitoring
+- Automatic fallback models
+- Export conversations
+- Conversation history
+- RAG support
+- Additional AI providers (OpenAI, Claude, Grok, Mistral)
+
+---
+
+## Learning Outcomes
+
+This project demonstrates:
+
+- AI orchestration
+- Multi-provider architecture
+- Provider abstraction
+- Factory Pattern
+- Configuration-driven design
+- Parallel API execution
+- Error handling
+- AI-as-a-Judge evaluation
+- Self-consistency techniques
